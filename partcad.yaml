@@ -1,0 +1,50 @@
+desc: Standard NEMA* interfaces
+partcad: ">=0.6.0"
+
+import:
+  pub:
+    onlyInRoot: True
+    type: git
+    url: https://github.com/openvmp/partcad-index/
+
+interfaces:
+  nema-17-motor-mount:
+    desc: NEMA-17 motor mount
+    compound: True
+    inherits:
+      "/pub/std/metric/m:m3-hole-4.5":
+        TL: [[-15.5, 15.5, 0.0], [0.0, 0.0, 1.0], 270.0] # top left
+        TR: [[15.5, 15.5, 0.0], [0.0, 0.0, 1.0], 180.0] # top right
+        BL: [[-15.5, -15.5, 0.0], [0.0, 0.0, 1.0], 0.0] # bottom left
+        BR: [[15.5, -15.5, 0.0], [0.0, 0.0, 1.0], 90.0] # bottom right
+    leadPort: TR-4.5mm-hole-opening-m3
+  nema-17-motor:
+    desc: NEMA-17 motor
+    inherits:
+      nema-17-motor-mount:
+      "/pub/std/metric/m:m5-shaft-22": [[0.0, 0.0, -24.0], [0.0, 0.0, 1.0], 0.0]
+  nema-17-motor-bracket:
+    desc: NEMA 17 motor bracket for screws
+    inherits:
+      "/pub/std/metric/m:m3-thru":
+        TL: [[-15.5, 15.5, 0.0], [0.0, 0.0, 1.0], 270.0] # top left
+        TR: [[15.5, 15.5, 0.0], [0.0, 0.0, 1.0], 180.0] # top right
+        BL: [[-15.5, -15.5, 0.0], [0.0, 0.0, 1.0], 0.0] # bottom left
+        BR: [[15.5, -15.5, 0.0], [0.0, 0.0, 1.0], 90.0] # bottom right
+    leadPort: TR-thru-opening-m3
+    mates: nema-17-motor-mount
+  nema-17-motor-bracket-3mm:
+    desc: NEMA 17 motor bracket (3mm thick) for motor
+    inherits:
+      "/pub/std/metric/m:m3-thru-3":
+        TL: [[-15.5, 15.5, 0.0], [0.0, 0.0, 1.0], 270.0] # top left
+        TR: [[15.5, 15.5, 0.0], [0.0, 0.0, 1.0], 180.0] # top right
+        BL: [[-15.5, -15.5, 0.0], [0.0, 0.0, 1.0], 0.0] # bottom left
+        BR: [[15.5, -15.5, 0.0], [0.0, 0.0, 1.0], 90.0] # bottom right
+    leadPort: TR-thru-3-opening-m3
+    mates: nema-17-motor-mount
+    # The below is an alternative to having leadPorts on both ends
+    # mates:
+    #   nema-17-motor-mount:
+    #     sourcePortSelector: "*TR*"
+    #     targetPortSelector: "*TR*"
